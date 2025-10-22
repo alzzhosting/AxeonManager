@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AxenManager Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #ffffff;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header Styles */
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+    
+    .profile-container {
+      margin-bottom: 30px;
+    }
+    
+    .profile-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #00d9ff;
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+      margin: 0 auto 20px;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #00d9ff, #00a2ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+    
+    .tagline {
+      font-size: 1.1rem;
+      color: #b0b0b0;
+      margin-bottom: 25px;
+      font-weight: 400;
+    }
+    
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      color: #00d9ff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 217, 255, 0.2);
+    }
+    
+    .social-icons a:hover {
+      background: #00d9ff;
+      color: #0a0a0a;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 217, 255, 0.4);
+    }
+    
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    
+    nav button {
+      background: transparent;
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+    
+    nav button:hover {
+      background: rgba(0, 217, 255, 0.1);
+      border-color: #00d9ff;
+    }
+    
+    nav button.active {
+      background: #00d9ff;
+      color: #0a0a0a;
+      border-color: #00d9ff;
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+    }
+    
+    /* Language Selector */
+    .lang-select {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      outline: none;
+      backdrop-filter: blur(10px);
+    }
+    
+    .lang-select option {
+      background: #1a1a2e;
+      color: #ffffff;
+    }
+    
+    /* Sections */
+    section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    section.active {
+      display: block;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    
+    /* Home Section */
+    .welcome-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    
+    .welcome-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #00d9ff;
+    }
+    
+    .welcome-card p {
+      color: #b0b0b0;
+      font-size: 1.1rem;
+    }
+    
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+    
+    .project-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 217, 255, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .project-card h3 {
+      color: #00d9ff;
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+    }
+    
+    .project-card p {
+      color: #b0b0b0;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+    
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #00d9ff;
+      color: #0a0a0a;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    .download-btn:hover {
+      background: #00a2ff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 217, 255, 0.4);
+    }
+    
+    /* Source Section */
+    .code-container {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .code-container pre {
+      background: #1a1a2e;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      color: #00d9ff;
+      font-family: 'Courier New', monospace;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .source-info {
+      text-align: center;
+      color: #b0b0b0;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .tagline {
+        font-size: 1rem;
+      }
+      
+      nav {
+        gap: 10px;
+      }
+      
+      nav button {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
+      
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .welcome-card {
+        padding: 25px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header {
+        padding: 40px 20px 30px;
+      }
+      
+      .profile-image {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .lang-select {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin: 0 auto 20px;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <select class="lang-select" id="langSelect">
+    <option value="id">🇮🇩 Indonesia</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="ar">🇸🇦 العربية</option>
+    <option value="jp">🇯🇵 日本語</option>
+    <option value="kr">🇰🇷 한국어</option>
+  </select>
+
+  <div class="container">
+    <header>
+      <div class="profile-container">
+        <img src="https://raw.githubusercontent.com/alzzhosting/upload-image/refs/heads/main/thumbnail%202%20%5B59E8427%5D.png" alt="AxenManager" class="profile-image">
+        <h1 id="introTitle">Hai, Saya AxenManager</h1>
+        <p class="tagline" id="introDesc">Developer, Creator, dan Explorer Teknologi</p>
+      </div>
+      
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fas fa-globe"></i></a>
+      </div>
+    </header>
+
+    <nav>
+      <button onclick="showSection('home')" id="btnHome" class="active">Beranda</button>
+      <button onclick="showSection('projects')" id="btnProjects">Module</button>
+      <button onclick="showSection('source')" id="btnSource">Source Code</button>
+    </nav>
+
+    <section id="home" class="active">
+      <div class="welcome-card">
+        <h2 id="welcomeText">Selamat datang di Portofolio AxenManager</h2>
+        <p id="infoText">Tekan tombol "Module" untuk melihat Module Saya!</p>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 id="projTitle" class="section-title">Project Saya</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>SurfaceFlinger V1</h3>
+          <p></p>
+          <a href="https://github.com/AxenManager/PTLC-Panel" target="_blank" class="download-btn">
+            <i class="fas fa-download"></i> Download Project
+          </a>
+        </div>
+        <div class="project-card">
+          <h3>BBoost V1</h3>
+          <p></p>
+          <a href="https://github.com/AxenManager/TelegramBot" target="_blank" class="download-btn">
+            <i class="fas fa-download"></i> Download Project
+          </a>
+        </div>
+        <div class="project-card">
+          <h3>CMD-TWEAKS</h3>
+          <p></p>
+          <a href="https://github.com/AxenManager/GameBooster" target="_blank" class="download-btn">
+            <i class="fas fa-download"></i> Download Project
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="source">
+      <h2 class="section-title">Source Code Module</h2>
+      <div class="code-container">
+        <pre><code>import { exec } from "https://cdn.jsdelivr.net/npm/kernelsu@1.0.6/+esm";</code></pre>
+      </div>
+      <p class="source-info">Eksekusi langsung di local HTTPS environment tanpa tab baru!</p>
+    </section>
+  </div>
+
+  <script>
+    const translations = {
+      id: {
+        introTitle:"Hai, Saya AxenManager",
+        introDesc:"Developer, Creator, dan Explorer Teknologi",
+        btnHome:"Module",
+        btnProjects:"Project",
+        btnSource:"Source Code",
+        welcomeText:"Selamat datang di Portofolio AxenManager",
+        infoText:"Tekan tombol \"Module\" untuk eksplorasi local HTTPS!",
+        projTitle:"Project Saya"
+      },
+      en: {
+        introTitle:"Hi, I'm AxenManager",
+        introDesc:"Developer, Creator, and Tech Explorer",
+        btnHome:"Home",
+        btnProjects:"Projects",
+        btnSource:"Source Code",
+        welcomeText:"Welcome to AxenManager's Portfolio",
+        infoText:"Click the 'Home' button to explore local HTTPS!",
+        projTitle:"My Projects"
+      },
+      ar: {
+        introTitle:"مرحباً، أنا ألز جينك",
+        introDesc:"مطور، صانع، ومستكشف التكنولوجيا",
+        btnHome:"الصفحة الرئيسية",
+        btnProjects:"المشاريع",
+        btnSource:"كود المصدر",
+        welcomeText:"مرحباً بك في معرض أعمال ألز جينك",
+        infoText:"اضغط على زر الصفحة الرئيسية لاستكشاف HTTPS المحلي!",
+        projTitle:"مشاريعي"
+      },
+      jp: {
+        introTitle:"こんにちは、私は AxenManager です",
+        introDesc:"開発者、クリエイター、技術探求者",
+        btnHome:"ホーム",
+        btnProjects:"プロジェクト",
+        btnSource:"ソースコード",
+        welcomeText:"AxenManager のポートフォリオへようこそ",
+        infoText:"「ホーム」ボタンをクリックしてローカル HTTPS を探索！",
+        projTitle:"私のプロジェクト"
+      },
+      kr: {
+        introTitle:"안녕하세요, 저는 AxenManager입니다",
+        introDesc:"개발자, 크리에이터, 기술 탐험가",
+        btnHome:"홈",
+        btnProjects:"프로젝트",
+        btnSource:"소스 코드",
+        welcomeText:"AxenManager 포트폴리오에 오신 것을 환영합니다",
+        infoText:"'홈' 버튼을 눌러 로컬 HTTPS를 탐색하세요!",
+        projTitle:"내 프로젝트"
+      }
+    };
+
+    document.getElementById("langSelect").addEventListener("change", function() {
+      const lang = this.value;
+      const t = translations[lang];
+      for (const id in t) {
+        document.getElementById(id).textContent = t[id];
+      }
+    });
+
+    function showSection(id) {
+      // Update active button
+      document.querySelectorAll("nav button").forEach(btn => {
+        btn.classList.remove("active");
+      });
+      event.target.classList.add("active");
+      
+      // Update active section
+      document.querySelectorAll("section").forEach(sec => {
+        sec.classList.remove("active");
+      });
+      document.getElementById(id).classList.add("active");
+      
+      // Update URL (simulated)
+      if (id === "home") history.pushState({}, "", "https://localhost/home");
+      if (id === "projects") history.pushState({}, "", "https://localhost/projects");
+      if (id === "source") history.pushState({}, "", "https://localhost/source");
+    }
+  </script>
+</body>
+</html>
